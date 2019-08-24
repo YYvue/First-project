@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+	<input type="text"id='uphone' placeholder="请输入11位手机号">
+	<span></span>
+	</div>	
+	<button id='btn' onclick='phone()'>获取手机验证码</button>15606583229
+</body>
+</html>
+
+<script>			
+
+
+
+					var giao=''; 
+					var uphone=document.getElementById('uphone');
+					var ubtn=document.getElementById('btn')
+					function vali_onblur(txt,reg,msg1,msg2,msg3) {
+							var span = txt.nextElementSibling;
+								if (txt.value == "") {
+									span.innerHTML = msg1;
+									giao=false;
+								} else if (reg.test(txt.value) == true) {
+									span.innerHTML = msg2;
+									giao=true;
+									
+								} else if (reg.test(txt.value) == false) {
+									span.innerHTML = msg3;
+									giao=false;
+									
+						}
+					}				
+										
+
+			uphone.onblur=function(){
+				vali_onblur(this,/^1[3-8]\d{9}$/,"手机号不得为空","手机号可以用","手机号不可以用");
+				}
+
+	
+		function phone(){
+
+			if(giao){
+
+
+
+		
+		//1创建异步对象
+		var xhr=new XMLHttpRequest();
+		//console.log(xhr);
+			//4接收响应数据开启监听器
+		xhr.onreadystatechange=function(){
+			//当为第4次时候 筛选出来
+			if(xhr.readyState==4&&xhr.status==200){
+				//只有readystate为4 响应传输完整 status是响应状态码 为200 是响应成功
+				var result=xhr.responseText;
+				
+				console.log(result);
+				ubtn.disabled='false';
+				var time=3;
+				ubtn.innerHTML=`${time}秒后重新发送验证码`
+				
+				
+				 var timesr=setInterval(function(){
+					time--;
+					ubtn.innerHTML=`${time}秒后重新发送验证码`
+					if(time==0){
+						clearInterval(timesr);
+						ubtn.removeAttribute("disabled");
+						ubtn.innerHTML=`重新发送验证码`
+					}
+					
+				},1000);
+			    
+				
+			   
+					
+				
+				
+				
+				
+
+
+
+
+
+
+
+
+
+			
+				
+			}
+		}
+		//2创建请求,打开链接
+		xhr.open("post","http://127.0.0.1:8080/ajax/ajaxDemo6",true);
+		
+		var formdata="uphone="+uphone.value;
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xhr.send(formdata);
+	
+	}
+	
+	};
+				
+		
+				
+
+
+</script>

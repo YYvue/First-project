@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<title>点击显示弹框</title>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #btn{
+      text-align: center;
+    }
+    .a1{
+      display: block;
+      text-decoration: none; //创建一个超链接点击可现实弹框
+    }
+    #back{
+       width: 100%;
+       height: 100%;
+       background: rgba(0,0,0,.5);  //设置黑色的透明色
+       position: fixed;       //在页面中绝对定位
+       top: 0;
+       left: 0;
+       z-index: 999;        //因为要覆盖全网页所以设置一个比较高的权重
+       display: none;
+    }
+    #login{
+      display: none;
+      width: 400px;
+      height: 250px;
+      background-color: #fff;
+      position: fixed;
+      top:50%;
+      left:50%;
+      margin:-125px 0 0 -200px;
+      z-index: 1000;
+    } //弹框用样也是像背景一样实现
+    #close_all{
+      position: absolute;
+      top:10px;
+      right:10px;
+      width:15px;
+      height:15px;
+      font-size:15px;
+      cursor: pointer; //该步鼠标悬停时变小手
+    } //给×符号定位在右上角
+  </style>
+  <script type="text/javascript">
+    window.onload=function () {
+      var btn=document.getElementById("btn");
+      var back=document.getElementById("back");
+      var login=document.getElementById("login");
+      var close_all=document.getElementById("close_all");
+      btn.onclick=function () {
+        back.style.display="block";
+        login.style.display="block";
+      }
+      close_all.onclick=function () {
+        back.style.display="none";
+        login.style.display="none";
+      }
+    }
+  </script>
+</head>
+<body>
+<div id="btn">
+  <a href="javascript:;" rel="external nofollow" class="a1">点击我登录</a>
+</div>
+<div id="back"></div>
+<div id="login">
+  <span id="close_all">×</span>
+</div>
+  
+
+	
+</body>
+</html>
